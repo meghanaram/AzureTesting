@@ -24,3 +24,10 @@ steps:
     script: |
       echo newman run PositiveTestCollectionAPI.json -e Environment.json
       
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here
+            
+            echo 'newman run PositiveTestCollectionAPI.json -e Environment.json'
