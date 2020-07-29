@@ -1,0 +1,264 @@
+{
+	"id": "eb041aa2-6e63-4af1-be20-5a186377f2a9",
+	"name": "Genesis-Dev",
+	"values": [
+		{
+			"key": "genesis-host",
+			"value": "https://qabox.asteria.co.in",
+			"enabled": true
+		},
+		{
+			"key": "admin-username",
+			"value": "meghana",
+			"enabled": true
+		},
+		{
+			"key": "add-user-name",
+			"value": "nuser6",
+			"enabled": true
+		},
+		{
+			"key": "add-user-pwd",
+			"value": "Asteria@123",
+			"enabled": true
+		},
+		{
+			"key": "add-user-firstname",
+			"value": "F21",
+			"enabled": true
+		},
+		{
+			"key": "add-user-lastname",
+			"value": "L21",
+			"enabled": true
+		},
+		{
+			"key": "add-user-email",
+			"value": "nuser6@gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "add-user-organisation",
+			"value": "TL21",
+			"enabled": true
+		},
+		{
+			"key": "set-password",
+			"value": "Nuser12@",
+			"enabled": true
+		},
+		{
+			"key": "new-password",
+			"value": "Meghana12&",
+			"enabled": true
+		},
+		{
+			"key": "end-date",
+			"value": "2020-04-12T23:59:59.999Z",
+			"enabled": true
+		},
+		{
+			"key": "end-time",
+			"value": "1899-12-31T23:59:59.999Z",
+			"enabled": true
+		},
+		{
+			"key": "start-date",
+			"value": "2018-03-08T00:00:00.000Z",
+			"enabled": true
+		},
+		{
+			"key": "start-time",
+			"value": "1899-12-31T00:00:00.000Z",
+			"enabled": true
+		},
+		{
+			"key": "authToken",
+			"value": "471f095c8a877a461f3095e227b85921",
+			"enabled": true
+		},
+		{
+			"key": "flightId",
+			"value": "12d0d808c16448d28e55a4b3c975d0db",
+			"enabled": true
+		},
+		{
+			"key": "resourceId",
+			"value": "25_10_2019_08_14_48.srt",
+			"enabled": true
+		},
+		{
+			"key": "events",
+			"value": "[{\"type\":\"low\",\"time\":3},{\"type\":\"medium\",\"time\":31},{\"type\":\"high\",\"time\":44}]",
+			"enabled": true
+		},
+		{
+			"key": "edit-user-firstname",
+			"value": "LE",
+			"enabled": true
+		},
+		{
+			"key": "edit-user-middlename",
+			"value": "ME",
+			"enabled": true
+		},
+		{
+			"key": "edit-user-userroles",
+			"value": "[\"user\",\"analyst\",\"superuser\",\"admin\"]",
+			"enabled": true
+		},
+		{
+			"key": "edit-user-organisation",
+			"value": "SE4",
+			"enabled": true
+		},
+		{
+			"key": "mediaflightId",
+			"value": "cf97472c8ed54565b803e36d59bf81f1",
+			"enabled": true
+		},
+		{
+			"key": "mediaresourceId",
+			"value": "21_02_2020_11_12_22.mp4",
+			"enabled": true
+		},
+		{
+			"key": "mcsId",
+			"value": "TESTER-A0",
+			"enabled": true
+		},
+		{
+			"key": "vehicleId",
+			"value": "TESTER-A0",
+			"enabled": true
+		},
+		{
+			"key": "mail-flightId",
+			"value": "d181f702cfaf1d21cee67efdabaa0e0d",
+			"enabled": true
+		},
+		{
+			"key": "mail-resourceId",
+			"value": "15_03_2019_11_24_10.png",
+			"enabled": true
+		},
+		{
+			"key": "mcs-username",
+			"value": "mcsuser6",
+			"enabled": true
+		},
+		{
+			"key": "mcs-useremail",
+			"value": "mcs6@gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "mcs-password",
+			"value": "Mcsuser12&",
+			"enabled": true
+		},
+		{
+			"key": "flight_id",
+			"value": null,
+			"enabled": true
+		},
+		{
+			"key": "analyst-username",
+			"value": "analyst",
+			"enabled": true
+		},
+		{
+			"key": "analyst-password",
+			"value": "Analyst12&",
+			"enabled": true
+		},
+		{
+			"key": "mcsdataflightid",
+			"value": "86478d8fde2cb4be0f94b3e74982f9ab",
+			"enabled": true
+		},
+		{
+			"key": "mcsdataresourceid",
+			"value": "21_02_2020_10_21_38.srt",
+			"enabled": true
+		},
+		{
+			"key": "baseschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"minLength\":1,\"maxLength\":3,\"status\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"additionalProperties\":false,\"required\":[\"status\",\"message\",\"data\"]}}",
+			"enabled": true
+		},
+		{
+			"key": "userschema",
+			"value": "{\"type\":\"object\",\"properties\":{\"additionalProperties\":false,\"userroles\":{\"uniqueItems\":true,\"type\":\"array\",\"minItems\":1,\"maxItems\":5,\"items\":[{\"type\":\"string\"}]},\"patternProperties\":{\"_name\":{\"type\":\"string\"}},\"sessions\":{\"type\":\"array\",\"maxItems\":2,\"items\":[{\"type\":\"object\",\"properties\":{\"ipAddress\":{\"type\":\"string\"},\"startDateTime\":{\"type\":\"string\"}},\"required\":[\"ipAddress\",\"startDateTime\"]}]},\"organisation\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"authToken\":{\"type\":\"string\"},\"tokenTTL\":{\"type\":\"string\"},\"required\":[\"username\",\"userroles\",\"firstname\",\"middlename\",\"lastname\",\"organisation\",\"email\",\"authToken\",\"tokenTTL\"]}}",
+			"enabled": true
+		},
+		{
+			"key": "admin-password",
+			"value": "Meghana12&",
+			"enabled": true
+		},
+		{
+			"key": "searchvideosschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"additionalProperties\":false,\"uniqueItems\":true,\"minItems\":1,\"maxItems\":5,\"flightId\":{\"type\":\"string\"},\"resourceId\":{\"type\":\"string\"},\"dateTime\":{\"type\":\"string\"},\"endDateTime\":{\"type\":\"string\"},\"location\":{\"type\":\"object\",\"properties\":{\"lat\":{\"type\":\"number\"},\"lng\":{\"type\":\"number\"}},\"required\":[\"lat\",\"lng\"]},\"thumbnail\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"telemetryUrl\":{\"type\":\"string\"}},\"required\":[\"flightId\",\"resourceId\",\"dateTime\",\"endDateTime\",\"location\",\"thumbnail\",\"url\"]}",
+			"enabled": true
+		},
+		{
+			"key": "userlicenseschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"packageName\":{\"type\":\"string\"},\"organisation\":{\"type\":\"string\"},\"createdAt\":{\"type\":\"string\"},\"validTill\":{\"type\":\"string\"},\"maxUsers\":{\"type\":\"integer\"},\"modules\":{\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]},{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]}]},\"currentDate\":{\"type\":\"string\"}},\"required\":[\"packageName\",\"organisation\",\"createdAt\",\"validTill\",\"maxUsers\",\"modules\",\"currentDate\"]}",
+			"enabled": true
+		},
+		{
+			"key": "getmediaschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"cues\":{\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"time\":{\"type\":\"integer\"}},\"required\":[\"type\",\"time\"]}]},\"_id\":{\"type\":\"string\"},\"flightId\":{\"type\":\"string\"},\"resourceId\":{\"type\":\"string\"},\"__v\":{\"type\":\"integer\"}},\"required\":[\"cues\",\"_id\",\"flightId\",\"resourceId\",\"__v\"]}]}",
+			"enabled": true
+		},
+		{
+			"key": "searchimagesschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"additionalProperties\":false,\"uniqueItems\":true,\"minItems\":1,\"maxItems\":5,\"flightId\":{\"type\":\"string\"},\"resourceId\":{\"type\":\"string\"},\"dateTime\":{\"type\":\"string\"},\"endDateTime\":{\"type\":\"string\"},\"location\":{\"type\":\"object\",\"properties\":{\"lat\":{\"type\":\"number\"},\"lng\":{\"type\":\"number\"}},\"required\":[\"lat\",\"lng\"]},\"thumbnail\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"telemetryUrl\":{\"type\":\"string\"}},\"required\":[\"flightId\",\"resourceId\",\"dateTime\",\"endDateTime\",\"location\",\"thumbnail\",\"url\"]}",
+			"enabled": true
+		},
+		{
+			"key": "mcslistschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"data\":{\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"mcsId\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"}},\"required\":[\"mcsId\",\"clientId\"]},{\"type\":\"object\",\"properties\":{\"mcsId\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"}},\"required\":[\"mcsId\",\"clientId\"]},{\"type\":\"object\",\"properties\":{\"mcsId\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"}},\"required\":[\"mcsId\",\"clientId\"]},{\"type\":\"object\",\"properties\":{\"mcsId\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"}},\"required\":[\"mcsId\",\"clientId\"]}]}},\"required\":[\"status\",\"message\",\"data\"]}",
+			"enabled": true
+		},
+		{
+			"key": "mcsuserschema",
+			"value": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"mcsId\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"mcsId\"\n  ]\n}",
+			"enabled": true
+		},
+		{
+			"key": "flightregisterschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"flightId\":{\"type\":\"string\"},\"socketServer\":{\"type\":\"string\"},\"videoServer\":{\"type\":\"string\"}},\"required\":[\"flightId\",\"socketServer\",\"videoServer\"]}",
+			"enabled": true
+		},
+		{
+			"key": "flightplanschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"flightId\":{\"type\":\"string\"},\"socketServer\":{\"type\":\"string\"},\"videoServer\":{\"type\":\"string\"}},\"required\":[\"flightId\",\"socketServer\",\"videoServer\"]}",
+			"enabled": true
+		},
+		{
+			"key": "flightretriveschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"flightHistory\":{\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"time\":{\"type\":\"string\"},\"plan\":{\"type\":\"object\",\"properties\":{\"flightMode\":{\"type\":\"string\"},\"waypoints\":{\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"number\"},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"index\",\"latitude\",\"longitude\",\"type\"]},{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"integer\"},\"data\":{\"type\":\"object\",\"properties\":{\"loiterType\":{\"type\":\"string\"},\"value\":{\"type\":\"integer\"}},\"required\":[\"loiterType\",\"value\"]},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"data\",\"index\",\"latitude\",\"longitude\",\"type\"]},{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"integer\"},\"data\":{\"type\":\"object\",\"properties\":{\"loiterType\":{\"type\":\"string\"},\"value\":{\"type\":\"integer\"}},\"required\":[\"loiterType\",\"value\"]},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"data\",\"index\",\"latitude\",\"longitude\",\"type\"]},{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"integer\"},\"data\":{\"type\":\"object\",\"properties\":{\"loiterType\":{\"type\":\"string\"},\"value\":{\"type\":\"integer\"}},\"required\":[\"loiterType\",\"value\"]},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"data\",\"index\",\"latitude\",\"longitude\",\"type\"]}]}},\"required\":[\"flightMode\",\"waypoints\"]},\"status\":{\"type\":\"string\"}},\"required\":[\"time\",\"plan\",\"status\"]}]},\"pilot\":{\"type\":\"string\"},\"flightId\":{\"type\":\"string\"},\"mcsId\":{\"type\":\"string\"},\"vehicleId\":{\"type\":\"string\"},\"protocol\":{\"type\":\"string\"},\"flightPlan\":{\"type\":\"object\",\"properties\":{\"flightMode\":{\"type\":\"string\"},\"waypoints\":{\"type\":\"array\",\"items\":[{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"number\"},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"index\",\"latitude\",\"longitude\",\"type\"]},{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"integer\"},\"data\":{\"type\":\"object\",\"properties\":{\"loiterType\":{\"type\":\"string\"},\"value\":{\"type\":\"integer\"}},\"required\":[\"loiterType\",\"value\"]},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"data\",\"index\",\"latitude\",\"longitude\",\"type\"]},{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"integer\"},\"data\":{\"type\":\"object\",\"properties\":{\"loiterType\":{\"type\":\"string\"},\"value\":{\"type\":\"integer\"}},\"required\":[\"loiterType\",\"value\"]},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"data\",\"index\",\"latitude\",\"longitude\",\"type\"]},{\"type\":\"object\",\"properties\":{\"altitude\":{\"type\":\"integer\"},\"data\":{\"type\":\"object\",\"properties\":{\"loiterType\":{\"type\":\"string\"},\"value\":{\"type\":\"integer\"}},\"required\":[\"loiterType\",\"value\"]},\"index\":{\"type\":\"integer\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}},\"required\":[\"altitude\",\"data\",\"index\",\"latitude\",\"longitude\",\"type\"]}]}},\"required\":[\"flightMode\",\"waypoints\"]},\"flightStatus\":{\"type\":\"string\"},\"location\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"string\"},\"longitude\":{\"type\":\"string\"}},\"required\":[\"latitude\",\"longitude\"]},\"registeredAt\":{\"type\":\"string\"},\"planUpdatedAt\":{\"type\":\"string\"},\"updatedAt\":{\"type\":\"string\"},\"bufferZone\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"geometry\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"coordinates\":{\"type\":\"array\",\"items\":[{\"type\":\"array\",\"items\":[{\"type\":\"array\",\"items\":[{\"type\":\"number\"},{\"type\":\"number\"}]},{\"type\":\"array\",\"items\":[{\"type\":\"number\"},{\"type\":\"number\"}]},{\"type\":\"array\",\"items\":[{\"type\":\"number\"},{\"type\":\"number\"}]},{\"type\":\"array\",\"items\":[{\"type\":\"number\"},{\"type\":\"number\"}]},{\"type\":\"array\",\"items\":[{\"type\":\"number\"},{\"type\":\"number\"}]}]}]}},\"required\":[\"type\",\"coordinates\"]}},\"required\":[\"type\",\"geometry\"]}},\"anyof\":[{\"required\":[\"flightHistory\",\"pilot\",\"flightId\",\"mcsId\",\"vehicleId\",\"protocol\",\"flightPlan\",\"flightStatus\",\"location\",\"registeredAt\",\"planUpdatedAt\",\"updatedAt\",\"bufferZone\"]}]}",
+			"enabled": true
+		},
+		{
+			"key": "mcsregschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"mcsId\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"}},\"required\":[\"mcsId\",\"clientId\"]}",
+			"enabled": true
+		},
+		{
+			"key": "emailconfigschema",
+			"value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"additionalProperties\":false,\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"verified_email\":{\"type\":\"boolean\"},\"picture\":{\"type\":\"string\"}},\"required\":[\"id\",\"email\",\"verified_email\",\"picture\"]}",
+			"enabled": true
+		},
+		{
+			"key": "admin-password",
+			"value": "Meghana12&",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-07-29T07:20:26.455Z",
+	"_postman_exported_using": "Postman/7.27.1"
+}

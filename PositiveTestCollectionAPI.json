@@ -1,0 +1,3927 @@
+{
+	"info": {
+		"_postman_id": "131e1794-0b3b-44dd-888c-46b1286fe0fa",
+		"name": "Positive TestCases - API ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Login- Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"var jsonData = pm.response.json();",
+									"var baseschema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"      \"minLength\": 1,",
+									"      \"maxLength\": 3,",
+									"      \"status\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"message\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"     \"status\",",
+									"     \"message\",",
+									"     \"data\",",
+									"    ]",
+									"  }",
+									"}",
+									"var userschema = { ",
+									"      \"type\":\"object\",",
+									"      \"properties\":{ ",
+									"            \"additionalProperties\":false,",
+									"            \"userroles\":{ ",
+									"            \"uniqueItems\":true,",
+									"            \"type\":\"array\",",
+									"            \"minItems\": 1,",
+									"            \"maxItems\": 5,",
+									"            \"items\":[ ",
+									"               { ",
+									"                  \"type\":\"string\"",
+									"               }",
+									"            ]",
+									"         },",
+									"            \"patternProperties\":{ ",
+									"            \"_name\":{ ",
+									"               \"type\":\"string\"",
+									"            }",
+									"         },",
+									"            \"sessions\": {",
+									"           \"type\": \"array\",",
+									"           \"maxItems\": 2,",
+									"          \"items\": [",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"ipAddress\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"startDateTime\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"ipAddress\",",
+									"            \"startDateTime\"",
+									"          ]",
+									"        }",
+									"      ]",
+									"    },",
+									"         \"organisation\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"email\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"authToken\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"tokenTTL\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"        \"required\": [",
+									"        \"username\",",
+									"        \"userroles\",",
+									"        \"firstname\",",
+									"        \"middlename\",",
+									"        \"lastname\",",
+									"        \"organisation\",",
+									"        \"email\",",
+									"        \"authToken\",",
+									"        \"tokenTTL\"",
+									"        ]",
+									"      }",
+									"   }",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    pm.environment.set('baseschema', JSON.stringify(baseschema));",
+									"    pm.environment.set('userschema', JSON.stringify(userschema));",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json(), userschema);",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    if(!res2.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search-videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a696b779-4c6e-4b9f-be28-742327dbfad1",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var searchvideosschema = pm.environment.get(\"searchvideosschema\");",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"    var array = jsonData.data;",
+									"    console.log(array.length);",
+									"        for (var i = 0; i < array.length; i++) {",
+									"         var res = tv4.validateResult(array[i], searchvideosschema);",
+									"            if(!res.valid){",
+									"                console.log(res);",
+									"            }",
+									"            pm.expect(res.valid).to.be.true;         ",
+									"        }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/search/videos?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"search",
+								"videos"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								},
+								{
+									"key": "end_date",
+									"value": "{{end-date}}",
+									"disabled": true
+								},
+								{
+									"key": "end_time",
+									"value": "{{end-time}}",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "skip",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort_on",
+									"value": "startDate",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "-1",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "{{start-date}}",
+									"disabled": true
+								},
+								{
+									"key": "start_time",
+									"value": "{{start-time}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search-Images",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ead4cef2-26ea-468e-9a1a-f3f0567b758d",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"verify success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var searchimagesschema = pm.environment.get(\"searchimagesschema\");",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"    var array = jsonData.data;",
+									"    console.log(array.length);",
+									"        for (var i = 0; i < array.length; i++) {",
+									"         var res = tv4.validateResult(array[i], searchimagesschema);",
+									"            if(!res.valid){",
+									"                console.log(res);",
+									"            }",
+									"            pm.expect(res.valid).to.be.true;         ",
+									"        }",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/search/images?auth_token={{authToken}}&end_date={{end-date}}&end_time={{end-time}}&limit=50&skip=0&sort_on=startDate&sort_order=-1&start_date={{start-date}}&start_time={{start-time}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"search",
+								"images"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								},
+								{
+									"key": "end_date",
+									"value": "{{end-date}}"
+								},
+								{
+									"key": "end_time",
+									"value": "{{end-time}}"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "sort_on",
+									"value": "startDate"
+								},
+								{
+									"key": "sort_order",
+									"value": "-1"
+								},
+								{
+									"key": "start_date",
+									"value": "{{start-date}}"
+								},
+								{
+									"key": "start_time",
+									"value": "{{start-time}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login- Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var baseschema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"      \"minLength\": 1,",
+									"      \"maxLength\": 3,",
+									"      \"status\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"message\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"     \"status\",",
+									"     \"message\",",
+									"     \"data\",",
+									"    ]",
+									"  }",
+									"}",
+									"var userschema = { ",
+									"      \"type\":\"object\",",
+									"      \"properties\":{ ",
+									"            \"additionalProperties\":false,",
+									"            \"userroles\":{ ",
+									"            \"uniqueItems\":true,",
+									"            \"type\":\"array\",",
+									"            \"minItems\": 1,",
+									"            \"maxItems\": 5,",
+									"            \"items\":[ ",
+									"               { ",
+									"                  \"type\":\"string\"",
+									"               }",
+									"            ]",
+									"         },",
+									"            \"patternProperties\":{ ",
+									"            \"_name\":{ ",
+									"               \"type\":\"string\"",
+									"            }",
+									"         },",
+									"            \"sessions\": {",
+									"           \"type\": \"array\",",
+									"           \"maxItems\": 2,",
+									"          \"items\": [",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"ipAddress\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"startDateTime\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"ipAddress\",",
+									"            \"startDateTime\"",
+									"          ]",
+									"        }",
+									"      ]",
+									"    },",
+									"         \"organisation\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"email\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"authToken\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"tokenTTL\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"        \"required\": [",
+									"        \"username\",",
+									"        \"userroles\",",
+									"        \"firstname\",",
+									"        \"middlename\",",
+									"        \"lastname\",",
+									"        \"organisation\",",
+									"        \"email\",",
+									"        \"authToken\",",
+									"        \"tokenTTL\"",
+									"        ]",
+									"      }",
+									"   }",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    pm.environment.set('baseschema', JSON.stringify(baseschema));",
+									"    pm.environment.set('userschema', JSON.stringify(userschema));",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json(), userschema);",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    if(!res2.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch existing gmail configuration Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d1d5700-884a-4f08-b06a-2f2d62cbd2d4",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"An email address is already configured\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/email/gmail?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"email",
+								"gmail"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media-Sent mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "337a12c9-3eb9-4f64-a54b-ac31259b41ac",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"Successfully sent the email\");",
+									"    ",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								},
+								{
+									"key": "messageBody",
+									"value": "hellooo",
+									"type": "text"
+								},
+								{
+									"key": "resourceId",
+									"value": "{{mail-resourceId}}",
+									"type": "text"
+								},
+								{
+									"key": "flightId",
+									"value": "{{mail-flightId}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "meghana.ramachandra@asteria.co.in",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/media/mail",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"media",
+								"mail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Siteconfig-UserLicense",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "399c715e-710b-46eb-ad75-830438e6cda8",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"License\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var userlicenseschema = pm.environment.get(\"userlicenseschema\");",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json().data, userlicenseschema);",
+									"    if(!res2.valid){",
+									"        console.log(res2);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/userlicense?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"userlicense"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userschema =  pm.environment.get(\"userschema\");\r",
+									"var baseschema = pm.environment.get(\"baseschema\");\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"success message\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);\r",
+									"    if(!res1.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    var res2 = tv4.validateResult(jsonData, userschema);\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    if(!res2.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res2.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Asteria@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media-Get cue points",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6430c893-ae66-4f33-9da7-6aae0e2a6811",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"verify success message\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"No events registered for given resource\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var getmediaschema = pm.environment.get(\"getmediaschema\");",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json().data, getmediaschema);",
+									"            if(!res2.valid){",
+									"                console.log(res2);",
+									"            }",
+									"            pm.expect(res2.valid).to.be.true;         ",
+									"            ",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/media/cues/{{mediaflightId}}/{{mediaresourceId}}?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"media",
+								"cues",
+								"{{mediaflightId}}",
+								"{{mediaresourceId}}"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media-Add cue points",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13fb13b8-67cc-4957-9082-e3e1fd41fd2c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var getmediaschema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": [",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"cues\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": [",
+									"            {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"type\": {",
+									"                  \"type\": \"string\"",
+									"                },",
+									"                \"time\": {",
+									"                  \"type\": \"integer\"",
+									"                }",
+									"              },",
+									"              \"required\": [",
+									"                \"type\",",
+									"                \"time\"",
+									"              ]",
+									"            }",
+									"            ]",
+									"        },",
+									"        \"_id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"flightId\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"resourceId\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"__v\": {",
+									"          \"type\": \"integer\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"cues\",",
+									"        \"_id\",",
+									"        \"flightId\",",
+									"        \"resourceId\",",
+									"        \"__v\"",
+									"      ]",
+									"    }",
+									"  ]",
+									"}",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"verify success message\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"Successfully saved events\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								},
+								{
+									"key": "flightId",
+									"value": "{{mediaflightId}}",
+									"type": "text"
+								},
+								{
+									"key": "resourceId",
+									"value": "{{mediaresourceId}}",
+									"type": "text"
+								},
+								{
+									"key": "events",
+									"value": "{{events}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/media/cues/{{mediaflightId}}/{{mediaresourceId}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"media",
+								"cues",
+								"{{mediaflightId}}",
+								"{{mediaresourceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media-Delete cue points",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c32161d-4bf5-444e-88b0-ef960787f89b",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"verify success message\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"Successfully removed events\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								},
+								{
+									"key": "events",
+									"value": "{{events}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/media/cues/{{mediaflightId}}/{{mediaresourceId}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"media",
+								"cues",
+								"{{mediaflightId}}",
+								"{{mediaresourceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight-Retrieve flight plan history",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "642506af-09d5-4e1b-bb43-4596484b2435",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"Flights list\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/flight/plan?auth_token={{authToken}}&flight_id={{mediaflightId}}&date_filter_for=updatedAt&location=[{\"latitude\": \"12.976\",\"longitude\": \"77.6464\"}]",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"flight",
+								"plan"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								},
+								{
+									"key": "flight_id",
+									"value": "{{mediaflightId}}"
+								},
+								{
+									"key": "pilot",
+									"value": "bob",
+									"disabled": true
+								},
+								{
+									"key": "flight_status",
+									"value": "Running",
+									"disabled": true
+								},
+								{
+									"key": "live",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "-1",
+									"disabled": true
+								},
+								{
+									"key": "skip",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "2019-06-06T00:59:59.999Z",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2019-06-07T12:35:32.892Z",
+									"disabled": true
+								},
+								{
+									"key": "date_filter_for",
+									"value": "updatedAt"
+								},
+								{
+									"key": "location",
+									"value": "[{\"latitude\": \"12.976\",\"longitude\": \"77.6464\"}]"
+								},
+								{
+									"key": "fields",
+									"value": "[\"pilot\"]",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - MCS user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userschema =  pm.environment.get(\"userschema\");\r",
+									"var baseschema = pm.environment.get(\"baseschema\");\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"success message\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");\r",
+									"    pm.expect(jsonData.data.username).to.eql(pm.environment.get(\"mcs-username\"));\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);\r",
+									"    if(!res1.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    var res2 = tv4.validateResult(jsonData, userschema);\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    if(!res2.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res2.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{mcs-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{mcs-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get MCS list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eddf8c-d543-4483-87a8-99a2988422b1",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.status).to.eql(\"success\");",
+									"});",
+									"var mcslistschema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"status\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"message\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"data\": {",
+									"      \"type\": \"array\",",
+									"      \"items\": [",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"mcsId\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"clientId\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"mcsId\",",
+									"            \"clientId\"",
+									"          ]",
+									"        },",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"mcsId\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"clientId\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"mcsId\",",
+									"            \"clientId\"",
+									"          ]",
+									"        },",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"mcsId\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"clientId\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"mcsId\",",
+									"            \"clientId\"",
+									"          ]",
+									"        },",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"mcsId\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"clientId\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"mcsId\",",
+									"            \"clientId\"",
+									"          ]",
+									"        }",
+									"      ]",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"status\",",
+									"    \"message\",",
+									"    \"data\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var mcslistschema = pm.environment.get(\"mcslistschema\");",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"        if(!res1.valid){",
+									"            console.log(result);",
+									"        }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"    var array = jsonData.data;",
+									"    console.log(array.length);",
+									"        for (var i = 0; i < array.length; i++) {",
+									"         var res = tv4.validateResult(array[i], mcslistschema);",
+									"            if(!res.valid){",
+									"                console.log(res);",
+									"            }",
+									"            pm.expect(res.valid).to.be.true;         ",
+									"        }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/mcs/systems?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"mcs",
+								"systems"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "To register MCS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73fd336b-c345-407f-86f7-a5cb9dc94b6e",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"MCS registered\");",
+									"    ",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"var mcsuserschema = pm.environment.get(\"mcsuserschema\");",
+									"var baseschema = pm.environment.get(\"baseschema\");",
+									"var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"var res2 = tv4.validateResult(pm.response.json().data, mcsuserschema);",
+									"    if(!res2.valid){",
+									"        console.log(res2);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;         ",
+									"            ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mcs_id",
+									"value": "{{mcsId}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "systems",
+									"type": "text"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/mcs",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"mcs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - MCS user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"var jsonData = pm.response.json();",
+									"var baseschema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"      \"minLength\": 1,",
+									"      \"maxLength\": 3,",
+									"      \"status\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"message\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"     \"status\",",
+									"     \"message\",",
+									"     \"data\",",
+									"    ]",
+									"  }",
+									"}",
+									"var userschema = { ",
+									"      \"type\":\"object\",",
+									"      \"properties\":{ ",
+									"            \"additionalProperties\":false,",
+									"            \"userroles\":{ ",
+									"            \"uniqueItems\":true,",
+									"            \"type\":\"array\",",
+									"            \"minItems\": 1,",
+									"            \"maxItems\": 5,",
+									"            \"items\":[ ",
+									"               { ",
+									"                  \"type\":\"string\"",
+									"               }",
+									"            ]",
+									"         },",
+									"            \"patternProperties\":{ ",
+									"            \"_name\":{ ",
+									"               \"type\":\"string\"",
+									"            }",
+									"         },",
+									"            \"sessions\": {",
+									"           \"type\": \"array\",",
+									"           \"maxItems\": 2,",
+									"          \"items\": [",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"ipAddress\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"startDateTime\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"ipAddress\",",
+									"            \"startDateTime\"",
+									"          ]",
+									"        }",
+									"      ]",
+									"    },",
+									"         \"organisation\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"email\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"authToken\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"tokenTTL\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"        \"required\": [",
+									"        \"username\",",
+									"        \"userroles\",",
+									"        \"firstname\",",
+									"        \"middlename\",",
+									"        \"lastname\",",
+									"        \"organisation\",",
+									"        \"email\",",
+									"        \"authToken\",",
+									"        \"tokenTTL\"",
+									"        ]",
+									"      }",
+									"   }",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    pm.environment.set('baseschema', JSON.stringify(baseschema));",
+									"    pm.environment.set('userschema', JSON.stringify(userschema));",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json(), userschema);",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    if(!res2.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{mcs-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{mcs-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight-Register flight plan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6b63c4e6-a3a0-480d-a382-8aa8056ac12e",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"     pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"Flight plan registered succesfully\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									" var flightregisterschema = pm.environment.get(\"flightregisterschema\");   ",
+									"var baseschema = pm.environment.get(\"baseschema\");",
+									"var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"var res2 = tv4.validateResult(pm.response.json().data, flightregisterschema);",
+									"    if(!res2.valid){",
+									"        console.log(res2);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;         ",
+									"            ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								},
+								{
+									"key": "flight_plan",
+									"value": "{}",
+									"type": "text"
+								},
+								{
+									"key": "mcs_id",
+									"value": "{{mcsId}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "\"\"",
+									"type": "text"
+								},
+								{
+									"key": "vehicle_id",
+									"value": "{{vehicleId}}",
+									"type": "text"
+								},
+								{
+									"key": "protocol",
+									"value": "MAVLINK",
+									"type": "text"
+								},
+								{
+									"key": "flight_status",
+									"value": "Running",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "12.976781845092773",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "77.64649200439453",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/flight/register",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"flight",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight-Update flight plan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f97b16d7-2a9e-4e14-ac92-ac10b71521ee",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"     pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"Flight plan updated succesfully\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"var flightplanschema = pm.environment.get(\"flightplanschema\");  ",
+									"var baseschema = pm.environment.get(\"baseschema\");",
+									"var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"var res2 = tv4.validateResult(pm.response.json().data, flightplanschema);",
+									"    if(!res2.valid){",
+									"        console.log(res2);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;         ",
+									"            ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								},
+								{
+									"key": "mcs_id",
+									"value": "{{mcsId}}",
+									"type": "text"
+								},
+								{
+									"key": "flight_id",
+									"value": "{{flight_id}}",
+									"type": "text"
+								},
+								{
+									"key": "flight_plan",
+									"value": "{}",
+									"type": "text"
+								},
+								{
+									"key": "flight_status",
+									"value": "Running",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/flight/update",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"flight",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"var jsonData = pm.response.json();",
+									"var baseschema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"      \"minLength\": 1,",
+									"      \"maxLength\": 3,",
+									"      \"status\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"message\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"     \"status\",",
+									"     \"message\",",
+									"     \"data\",",
+									"    ]",
+									"  }",
+									"}",
+									"var userschema = { ",
+									"      \"type\":\"object\",",
+									"      \"properties\":{ ",
+									"            \"additionalProperties\":false,",
+									"            \"userroles\":{ ",
+									"            \"uniqueItems\":true,",
+									"            \"type\":\"array\",",
+									"            \"minItems\": 1,",
+									"            \"maxItems\": 5,",
+									"            \"items\":[ ",
+									"               { ",
+									"                  \"type\":\"string\"",
+									"               }",
+									"            ]",
+									"         },",
+									"            \"patternProperties\":{ ",
+									"            \"_name\":{ ",
+									"               \"type\":\"string\"",
+									"            }",
+									"         },",
+									"            \"sessions\": {",
+									"           \"type\": \"array\",",
+									"           \"maxItems\": 2,",
+									"          \"items\": [",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"ipAddress\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"startDateTime\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"ipAddress\",",
+									"            \"startDateTime\"",
+									"          ]",
+									"        }",
+									"      ]",
+									"    },",
+									"         \"organisation\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"email\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"authToken\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"tokenTTL\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"        \"required\": [",
+									"        \"username\",",
+									"        \"userroles\",",
+									"        \"firstname\",",
+									"        \"middlename\",",
+									"        \"lastname\",",
+									"        \"organisation\",",
+									"        \"email\",",
+									"        \"authToken\",",
+									"        \"tokenTTL\"",
+									"        ]",
+									"      }",
+									"   }",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    pm.environment.set('baseschema', JSON.stringify(baseschema));",
+									"    pm.environment.set('userschema', JSON.stringify(userschema));",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json(), userschema);",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    if(!res2.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{new-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive flight plan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5aa68d5a-218b-4d21-878f-784b44af7c05",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"     //pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"Flights list\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"var flightretriveschema = pm.environment.get(\"flightretriveschema\");",
+									"var baseschema = pm.environment.get(\"baseschema\");",
+									"var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"    var array = jsonData.data;",
+									"     console.log(array.length);",
+									"        for (var i = 0; i < array.length; i++) {",
+									"         var res = tv4.validateResult(pm.response.json(), flightretriveschema);",
+									"            if(!res.valid){",
+									"                console.log(res);",
+									"            }",
+									"            pm.expect(res.valid).to.be.true;         ",
+									"            }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/flight/plan?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"flight",
+								"plan"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DATA",
+			"item": [
+				{
+					"name": "Login-Analyst",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userschema =  pm.environment.get(\"userschema\");\r",
+									"var baseschema = pm.environment.get(\"baseschema\");\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"success message\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);\r",
+									"    if(!res1.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    var res2 = tv4.validateResult(jsonData, userschema);\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    if(!res2.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res2.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get MCS data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "580fa16b-4228-4b94-8252-3b2382be82cd",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/data/v1.0/flight/mcsdata?flight_id={{mail-flightId}}&resource_id={{mail-resourceId}}&auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"data",
+								"v1.0",
+								"flight",
+								"mcsdata"
+							],
+							"query": [
+								{
+									"key": "flight_id",
+									"value": "{{mail-flightId}}"
+								},
+								{
+									"key": "resource_id",
+									"value": "{{mail-resourceId}}"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - MCS User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userschema =  pm.environment.get(\"userschema\");\r",
+									"var baseschema = pm.environment.get(\"baseschema\");\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"success message\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);\r",
+									"    if(!res1.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    var res2 = tv4.validateResult(jsonData, userschema);\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    if(!res2.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res2.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{mcs-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{mcs-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Is MCS registered",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c95fce8b-e164-4bf3-9978-32c84e2bcf1c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"     pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"MCS is registered\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"var mcsregschema = pm.environment.get(\"mcsregschema\");  ",
+									"var baseschema = pm.environment.get(\"baseschema\");",
+									"var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"var res2 = tv4.validateResult(pm.response.json().data, mcsregschema);",
+									"    if(!res2.valid){",
+									"        console.log(res2);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;         ",
+									"            ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/mcs/systems/{{mcsId}}?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"mcs",
+								"systems",
+								"{{mcsId}}"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login-Analyst",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userschema =  pm.environment.get(\"userschema\");\r",
+									"var baseschema = pm.environment.get(\"baseschema\");\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"success message\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);\r",
+									"    if(!res1.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    var res2 = tv4.validateResult(jsonData, userschema);\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    if(!res2.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res2.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stream MCS data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b67e397-3adf-46a7-ac83-1ed9d46200ad",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Range",
+								"value": "bytes=65536-",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{genesis-host}}/data/v1.0/flight/stream?flight_id={{mcsdataflightid}}&resource_id={{mcsdataresourceid}}&auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"data",
+								"v1.0",
+								"flight",
+								"stream"
+							],
+							"query": [
+								{
+									"key": "flight_id",
+									"value": "{{mcsdataflightid}}"
+								},
+								{
+									"key": "resource_id",
+									"value": "{{mcsdataresourceid}}"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - MCS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userschema =  pm.environment.get(\"userschema\");\r",
+									"var baseschema = pm.environment.get(\"baseschema\");\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"success message\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);\r",
+									"    if(!res1.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    var res2 = tv4.validateResult(jsonData, userschema);\r",
+									"    pm.expect(res1.valid).to.be.true;\r",
+									"    if(!res2.valid){\r",
+									"        console.log(result);\r",
+									"    }\r",
+									"    pm.expect(res2.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{mcs-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{mcs-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight-Register flight plan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6b63c4e6-a3a0-480d-a382-8aa8056ac12e",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"     pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"Flight plan registered succesfully\");",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"var flightregisterschema = pm.environment.get(\"flightregisterschema\");   ",
+									"var baseschema = pm.environment.get(\"baseschema\");",
+									"var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"   ",
+									"var res2 = tv4.validateResult(pm.response.json().data, flightregisterschema);",
+									"    if(!res2.valid){",
+									"        console.log(res2);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;         ",
+									"            ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								},
+								{
+									"key": "flight_plan",
+									"value": "{}",
+									"type": "text"
+								},
+								{
+									"key": "mcs_id",
+									"value": "{{mcsId}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "\"\"",
+									"type": "text"
+								},
+								{
+									"key": "vehicle_id",
+									"value": "{{vehicleId}}",
+									"type": "text"
+								},
+								{
+									"key": "protocol",
+									"value": "MAVLINK",
+									"type": "text"
+								},
+								{
+									"key": "flight_status",
+									"value": "Running",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "12.976781845092773",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "77.64649200439453",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/flight/register",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"flight",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiate Mission DataUpload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c39f38b6-0cd0-4668-b982-3c9fc0bf3767",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "File-Size",
+								"value": "567",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/data/v1.0/flight/missiondata/{{flight_id}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"data",
+								"v1.0",
+								"flight",
+								"missiondata",
+								"{{flight_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get status of mission data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "67ed84e4-3f79-46f8-a5e9-1106504f319b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8368485c-4c3a-4851-8ac4-0af7dbfc0905",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/data/v1.0/flight/missiondata/{{flight_id}}?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"data",
+								"v1.0",
+								"flight",
+								"missiondata",
+								"{{flight_id}}"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload mission data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "39be56e0-8aa4-4add-85e6-bd68756a4c9e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Chunk-Size",
+								"value": "466",
+								"type": "text"
+							},
+							{
+								"key": "Next-Offset",
+								"value": "0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/data/v1.0/flight/missiondata/{{flight_id}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"data",
+								"v1.0",
+								"flight",
+								"missiondata",
+								"{{flight_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SMTP",
+			"item": [
+				{
+					"name": "Login- Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"pm.test(\"Verify response body\", function () {",
+									"    pm.response.to.be.json;",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"    pm.expect(pm.response.text()).to.include(\"data\");",
+									"    pm.expect(jsonData.data.username).to.eql(pm.environment.get(\"admin-username\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SMTP email Config",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ca9acf13-b5af-4fb7-9d80-de0340d55285",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Successfully configured SMTP\");",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "test@123",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "test@cartis.co.in",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ramachandra.meghana@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "host",
+									"value": "smtpout.secureserver.net",
+									"type": "text"
+								},
+								{
+									"key": "port",
+									"value": "25",
+									"type": "text"
+								},
+								{
+									"key": "secure",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "meghana R",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/email/smtp?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"email",
+								"smtp"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						},
+						"description": "Configuring our own SMTP for sending mails"
+					},
+					"response": []
+				},
+				{
+					"name": "Login- Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"pm.test(\"Verify response body\", function () {",
+									"    pm.response.to.be.json;",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"    pm.expect(pm.response.text()).to.include(\"data\");",
+									"    pm.expect(jsonData.data.username).to.eql(pm.environment.get(\"admin-username\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch smtp config",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b7e92a-3d02-445c-b1a6-0abe31453223",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"SMTP configuration found\");",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/email/smtp?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"email",
+								"smtp"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						},
+						"description": "Fetch existing SMTP configuration"
+					},
+					"response": []
+				},
+				{
+					"name": "Login- Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"pm.test(\"Verify response body\", function () {",
+									"    pm.response.to.be.json;",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"    pm.expect(pm.response.text()).to.include(\"data\");",
+									"    pm.expect(jsonData.data.username).to.eql(pm.environment.get(\"admin-username\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete SMTP email Config",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ca9acf13-b5af-4fb7-9d80-de0340d55285",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Successfully configured SMTP\");",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "host",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "port",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "secure",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/email/smtp?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"email",
+								"smtp"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						},
+						"description": "Configuring our own SMTP for sending mails"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gmail Config",
+			"item": [
+				{
+					"name": "Login- Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9db2d55d-7ad9-4861-8f68-b1ce9273d01a",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"authToken\", jsonData.data.authToken);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Authenticated succesfully\");",
+									"    ",
+									"});",
+									"",
+									"console.log(\"validate user and token \" + jsonData.data.authToken);",
+									"",
+									"var jsonData = pm.response.json();",
+									"var baseschema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"      \"minLength\": 1,",
+									"      \"maxLength\": 3,",
+									"      \"status\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"message\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"     \"status\",",
+									"     \"message\",",
+									"     \"data\",",
+									"    ]",
+									"  }",
+									"}",
+									"var userschema = { ",
+									"      \"type\":\"object\",",
+									"      \"properties\":{ ",
+									"            \"additionalProperties\":false,",
+									"            \"userroles\":{ ",
+									"            \"uniqueItems\":true,",
+									"            \"type\":\"array\",",
+									"            \"minItems\": 1,",
+									"            \"maxItems\": 5,",
+									"            \"items\":[ ",
+									"               { ",
+									"                  \"type\":\"string\"",
+									"               }",
+									"            ]",
+									"         },",
+									"            \"patternProperties\":{ ",
+									"            \"_name\":{ ",
+									"               \"type\":\"string\"",
+									"            }",
+									"         },",
+									"            \"sessions\": {",
+									"           \"type\": \"array\",",
+									"           \"maxItems\": 2,",
+									"          \"items\": [",
+									"        {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"ipAddress\": {",
+									"              \"type\": \"string\"",
+									"            },",
+									"            \"startDateTime\": {",
+									"              \"type\": \"string\"",
+									"            }",
+									"          },",
+									"          \"required\": [",
+									"            \"ipAddress\",",
+									"            \"startDateTime\"",
+									"          ]",
+									"        }",
+									"      ]",
+									"    },",
+									"         \"organisation\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"email\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"authToken\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"         \"tokenTTL\":{ ",
+									"            \"type\":\"string\"",
+									"         },",
+									"        \"required\": [",
+									"        \"username\",",
+									"        \"userroles\",",
+									"        \"firstname\",",
+									"        \"middlename\",",
+									"        \"lastname\",",
+									"        \"organisation\",",
+									"        \"email\",",
+									"        \"authToken\",",
+									"        \"tokenTTL\"",
+									"        ]",
+									"      }",
+									"   }",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    pm.environment.set('baseschema', JSON.stringify(baseschema));",
+									"    pm.environment.set('userschema', JSON.stringify(userschema));",
+									"    var res1 = tv4.validateResult(pm.response.json(), baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(pm.response.json(), userschema);",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    if(!res2.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bf5be464-ff18-4cc6-a70f-010c7e6ff005",
+								"exec": [
+									"console.log(\"hello world\");",
+									"let urlvar = pm.variables.get(\"genesis-host\");",
+									"console.log(\"value for url is: \"+urlvar);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{genesis-host}}/auth/login",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch existing gmail configuration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d1d5700-884a-4f08-b06a-2f2d62cbd2d4",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"flight_id\", jsonData.data.flightId);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"   pm.expect(jsonData.message).to.eql(\"An email address is already configured\");",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var emailconfigschema =  pm.environment.get(\"emailconfigschema\");",
+									"    var baseschema = pm.environment.get(\"baseschema\");",
+									"    var res1 = tv4.validateResult(jsonData, baseschema);",
+									"    if(!res1.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    var res2 = tv4.validateResult(jsonData, userschema);",
+									"    pm.expect(res1.valid).to.be.true;",
+									"    if(!res2.valid){",
+									"        console.log(result);",
+									"    }",
+									"    pm.expect(res2.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/email/gmail?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"email",
+								"gmail"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete gmail Config",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "438df659-e2e8-4bc7-b998-c8f779c9a4ce",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"success message\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"    pm.expect(jsonData.message).to.eql(\"Successfully unauthenticated the mailing client\");",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Verify response body\", function () {",
+									"    pm.response.to.be.json;",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"    pm.expect(pm.response.text()).to.include(\"data\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{genesis-host}}/api/v1.0/config/email/gmail?auth_token={{authToken}}",
+							"host": [
+								"{{genesis-host}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"config",
+								"email",
+								"gmail"
+							],
+							"query": [
+								{
+									"key": "auth_token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c4e189ca-536a-4fa0-bcc3-2f4fcbecdcdc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b7ff07db-be4f-4689-84d4-fa6b8bcdcfc4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
