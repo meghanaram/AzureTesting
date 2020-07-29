@@ -23,4 +23,4 @@ steps:
   inputs:
     script: |
       echo newman run PositiveTestCollectionAPI.json -e Environment.json
-      echo Hello world
+      
