@@ -21,4 +21,6 @@ steps:
   inputs:
     script: |
       echo npm -g install newman
-      
+      - task: CmdLine@2
+        inputs:
+          script: 'echo  newman run PositiveTestCollectionAPI.json -e Environment.json'
