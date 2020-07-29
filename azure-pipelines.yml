@@ -19,3 +19,8 @@ steps:
   displayName: 'Run a multi-line script'
 
 
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo newman run PositiveTestCollectionAPI.json -e Environment.json
+      echo Hello world
